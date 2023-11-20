@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.spring.repository.PostRepository">
+<!-- id, flushCache, parameterType, resultType... -->
+    <insert id="regist" flushCache="true" parameterType="com.lec.spring.domain.Coupon"
+            useGeneratedKeys="true" keyColumn="cp_id" keyProperty="id">
+            <!--keyColumn이 db거-->
+        INSERT INTO exam_coupon
+        (cp_name, cp_kind, cp_sno)
+        VALUES
+        (#{name}, #{kind}, #{sno})
+    </insert>
+
+    <update id="modify" flushCache="true" parameterType="com.lec.spring.domain.Coupon">
+        UPDATE exam_coupon
+        SET cp_name = #{name}, cp_kind = #{kind}, cp_sno = #{sno}
+        WHERE cp_id = #{id}
+    </update>
+
+    <delete id="remove" flushCache="true" parameterType="com.lec.spring.domain.Coupon">
+        DELETE FROM exam_coupon WHERE cp_id = #{id}
+    </delete>
+
+    <sql id="SELECT_BASE">
+        SELECT
+            id,
+            name,
+            kind,
+            sno
+        FROM
+            exam_coupon
+        WHERE
+            1 = 1
+    </sql>
+
+    <select id="findAll" resultType="com.lec.spring.domain.Coupon">
+        <include refid="SELECT_BASE"/>
+    </select>
+
+    <select id="findById" resultType="com.lec.spring.domain.Coupon">
+        <include refid="SELECT_BASE"/>
+        AND id = #{id}
+    </select>
+</mapper>
