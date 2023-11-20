@@ -1,10 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>수정</title>
-</head>
-<body>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-</body>
+<script th:unless="${coupon}">
+    alert("해당 정보가 삭제되거나 없습니다");
+    history.back();
+</script>
+
+<th:block th:if="${coupon}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+        <link th:href="@{/css/modify.css}">
+
+        <title>수정 - [[${coupon.name}]]</title>
+    </head>
+    <body style="margin-bottom: 200px">
+    <div class="container mt-3">
+        <h2>[[${coupon.id}]] - [[${coupon.name}]]</h2>
+        <hr>
+        <!-- delete 구현을 위한 form -->
+        <form th:action="@{/coupon/modify}" method="post">
+            <input type="hidden" name="id" th:value="${coupon.id}"/>
+            <div class="mb-3 mt-3">
+                <label for="names">쿠폰 이름:</label>
+                <input type="text" class="form-control" id="names" placeholder="쿠폰 이름을 입력하세요" name="name" th:value="${coupon.name}">
+                <span class="text-danger" th:if="${error_name}" th:utext="${error_name}"></span>
+            </div>
+            <div class="my-3">
+                <label>쿠폰 종류:</label>
+                <input id="one" type="radio" name="kind" value="정기권"><label for="one">정기권</label>
+                <input id="two" type="radio" name="kind" value="할인권"><label for="two">할인권</label>
+                <span class="text-danger" th:if="${error_kind}" th:utext="${error_kind}"></span>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="sno">쿠폰 번호:</label>
+                <input type="text" class="form-control" id="sno" placeholder="쿠폰 번호을 입력하세요" name="sno" th:value="${coupon.sno}">
+                <span class="text-danger" th:if="${error_sno}" th:utext="${error_sno}"></span>
+            </div>
+
+
+            <!-- 하단 링크 -->
+            <div class="d-flex">
+                <button type="submit" class="btn btn-outline-dark">수정완료</button>
+                <button type="button" class="btn btn-outline-dark ms-1" onclick="history.back()">이전으로</button>
+                <a class="btn btn-outline-dark ms-1" th:href="@{/coupon/list}">목록</a>
+            </div>
+            <!-- 하단 링크 -->
+
+        </form>
+    </div>
+
+    </body>
+</th:block>
 </html>

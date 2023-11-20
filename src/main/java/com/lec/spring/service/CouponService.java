@@ -1,11 +1,9 @@
 package com.lec.spring.service;
 
 import com.lec.spring.domain.Coupon;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface CouponService {
     int write(Coupon coupon); // 작성
 
@@ -14,5 +12,5 @@ public interface CouponService {
 
     int update(Coupon coupon); // 수정
 
-    int deleteByid(Long id); // 삭제
+    int deleteById(Long id); // 삭제
 }

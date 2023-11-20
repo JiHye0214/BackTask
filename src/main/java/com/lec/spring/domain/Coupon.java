@@ -1,5 +1,6 @@
 package com.lec.spring.domain;
 
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

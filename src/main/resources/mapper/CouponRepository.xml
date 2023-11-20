@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.lec.spring.repository.PostRepository">
+<mapper namespace="com.lec.spring.repository.CouponRepository">
 <!-- id, flushCache, parameterType, resultType... -->
     <insert id="regist" flushCache="true" parameterType="com.lec.spring.domain.Coupon"
             useGeneratedKeys="true" keyColumn="cp_id" keyProperty="id">
@@ -26,10 +26,10 @@
 
     <sql id="SELECT_BASE">
         SELECT
-            id,
-            name,
-            kind,
-            sno
+            cp_id "id",
+            cp_name "name",
+            cp_kind "kind",
+            cp_sno "sno"
         FROM
             exam_coupon
         WHERE
@@ -38,10 +38,11 @@
 
     <select id="findAll" resultType="com.lec.spring.domain.Coupon">
         <include refid="SELECT_BASE"/>
+        ORDER BY cp_id DESC
     </select>
 
     <select id="findById" resultType="com.lec.spring.domain.Coupon">
         <include refid="SELECT_BASE"/>
-        AND id = #{id}
+        AND cp_id = #{id}
     </select>
 </mapper>

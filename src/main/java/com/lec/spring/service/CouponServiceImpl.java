@@ -4,9 +4,11 @@ import com.lec.spring.domain.Coupon;
 import com.lec.spring.repository.CouponRepository;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CouponServiceImpl implements CouponService{
 
     // repository 주입 받기
@@ -38,7 +40,7 @@ public class CouponServiceImpl implements CouponService{
     }
 
     @Override
-    public int deleteByid(Long id) {
+    public int deleteById(Long id) {
         int result = 0;
         Coupon coupon = couponRepository.findById(id);
         if(coupon != null){
