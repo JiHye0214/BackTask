@@ -39,7 +39,7 @@ public class CouponValidator implements Validator {
         String number = coupon.getSno();
 
         if(!Pattern.matches(regexSno, number)){
-            errors.rejectValue("sno", "올바른 양식이 아닙니다.");
+            errors.rejectValue("sno", "쿠폰의 양식이 올바르지 않습니다.");
         }
 
     }
