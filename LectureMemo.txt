@@ -1,0 +1,56 @@
+
+[ 목록 페이징 ]
+
+    ✔️ 현재 사용자의 '정보'를 가져오고 싶으면 getUser
+    ✔️ '상태'로서 정보를 담고 싶으면 getSession
+    ✔️ getSession에는 주소값이 들어 있음
+
+    1. application.yml
+        app: pagination:
+        page_rows: 한 페이지 그룹 당 보여줄 글 수
+        write_pages: 한번에 보여 줄 페이지 그룹 수 (있잖아 그 페이지 리스트 아래 있는 페이지 넘기는 버튼)
+
+    2. PostRepository
+        시작번호, 보여줄 개수를 파라미터로 받는 List<Post> 타입 함수 생성
+        전체 글 개수 받는 함수 생성
+
+    3. PostRepository.xml
+        2번 함수 구현
+
+    4. BoardService
+        현재 페이지 번호, model을 파라미터로 받는 List<Post> 타입 함수 생성 --- 기능은 리스트 보여주기
+
+    5. BoardServiceImpl
+        4번 함수 구현
+
+    6. list.html 수정
+        페이징헤더 생성
+        - 현재페이지 / 전체페이지수 보여주기
+        - page_rows 선택할 수 있는 옵션
+
+    7. list.js
+        - list.html 태그의 name을 이용하여 pageRows 값이 바뀔 때마다 submit하는 함수 만들기
+
+[ 작성 아이디 db에서 가져오기 ]
+
+	1. PostRepository.xml
+		t5에서 post랑 user 테이블 가져오는 쿼리문 만들기(별명으로 구분)
+		✔️ select는 result타입이 객체이므로 해당 객체에 없는 이름(별명)은 mapping 불가능
+		💡 select문에 resultType 이 아니라 resultMap 속성 넣기
+		    <resultMap>
+			<result column="sql 별명" property="객체 변수명"> ...
+
+[ 권한에 따른 동작 분리 ]
+
+	* xmlns:sec="~"
+	* xmlns:th 와 비슷
+	1. 권한에 따라 보여 줄 태그에 sec=authorize="________" 속성 넣기
+	✔️ 안에 들어갈 값에는
+		isAnonymous() : 로그인 안 해도 보임
+		isAuthenticatied() : 로그인 해야 됨
+		hasRole(특정 권한명) : 이 권한 갖고 있는 사람만 가능
+		hasAnyRole('권한명', '권한명',...) : 이 권한 중 하나라도 갖고 있으면 가능
+
+	2. html에다가 필요한 태그 속에
+	   <th:block th:insert="~{common/header::header}"></th:block> 이런 식으로 넣기
+	   common/header.html에서 header fragment를 가져오겠다는 의미임
